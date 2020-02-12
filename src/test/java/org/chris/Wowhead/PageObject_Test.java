@@ -58,6 +58,7 @@ public class PageObject_Test {
 		page_PNJ.objet1.click();
 		Thread.sleep(3000);
 		PageItemLoot page_item_loot1 = PageFactory.initElements(driver, PageItemLoot.class);
+		
 		String description_objet1 = page_item_loot1.objet1.getText();
 		System.out.println(description_objet1);
 		
