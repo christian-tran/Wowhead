@@ -18,14 +18,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.Keys;
 
 public class PageObject_Test {
+
+	WebDriver driver; //= new ChromeDriver();
 	
 	// JDD
 	String PNJAChercher = "lardeur";
-	WebDriver driver = new ChromeDriver();
 	
 	@Before
 	public void setup() {
-		
+		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
