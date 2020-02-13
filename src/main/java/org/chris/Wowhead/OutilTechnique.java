@@ -17,17 +17,17 @@ public class OutilTechnique {
 	
 static WebDriver driver ;
 	
-	static WebDriver choisirNavigateur(ENavigateur nav) {
+	static WebDriver choisirNavigateur(String nav) {
 		switch(nav) {
-		case firefox:
+		case "firefox":
 			System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver.exe") ;
 			driver = new FirefoxDriver() ;
 			return driver;
-		case chrome:
+		case "chrome":
 			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 			driver = new ChromeDriver();
 			return driver;
-		case ie:
+		case "ie":
 			System.setProperty("webdriver.ie.driver", "src/test/resources/IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			return driver;
@@ -37,17 +37,21 @@ static WebDriver driver ;
 		
 	}
 	
-	public List<String> loadFile(String filePath) throws FileNotFoundException {
-		URL toto = OutilTechnique.class.getClassLoader().getResource(filePath);
-		File totoResource = new File(toto.getFile());
-		
-	    Scanner s = new Scanner(totoResource, "UTF-8");
+	public static List<String> loadFile(String filePath) throws FileNotFoundException {
+		   
+
+	    
+	    File file = new File(filePath);
 	    ArrayList<String> list = new ArrayList<String>();
-	    while (s.hasNextLine()){
-	        list.add(s.nextLine());
-	    }
-	    s.close();
-	   
+	    if(file.exists()) {
+	    	Scanner s = new Scanner(file, "UTF-8");
+	    	
+	    	while (s.hasNextLine()){
+	    		list.add(s.nextLine());
+	    	}
+	    	s.close();
+	    	
+	    	}
 	    return list;
 	}
 

@@ -2,10 +2,13 @@ package org.chris.Wowhead;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.chris.Wowhead.ENavigateur;
-import org.chris.Wowhead.OutilTechnique;
+
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -20,13 +23,14 @@ import org.openqa.selenium.Keys;
 public class PageObject_Test {
 
 	WebDriver driver; //= new ChromeDriver();
+	private String BROWSER = System.getProperty("navigateur");
 	
 	// JDD
 	String PNJAChercher = "lardeur";
 	
 	@Before
 	public void setup() {
-		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
+		driver = OutilTechnique.choisirNavigateur(BROWSER);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
@@ -37,7 +41,7 @@ public class PageObject_Test {
 	}
 	
 	@Test
-	public void test() throws InterruptedException {
+	public void test() throws InterruptedException, FileNotFoundException {
 		
 		driver.get("https://fr.wowhead.com/");
 		driver.manage().window().maximize();
@@ -59,9 +63,11 @@ public class PageObject_Test {
 		page_PNJ.objet1.click();
 		Thread.sleep(3000);
 		PageItemLoot page_item_loot1 = PageFactory.initElements(driver, PageItemLoot.class);
-		
-		String description_objet1 = page_item_loot1.objet1.getText();
-		System.out.println(description_objet1);
+		List<String> objet1CaracRef = OutilTechnique.loadFile("src/test/resources/Objet1");
+		List<String> objet1Carac = PageItemLoot.returnCaractItem(driver, "Chahuteurs de cadavre");
+		System.out.println(objet1Carac);
+		System.out.println(objet1CaracRef);
+
 		
 		Thread.sleep(7000);
 
